@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="ExpandableListViewDemo.Views.MainPage"
+             Title="MainPage"
+             x:Name="TheMainPage">
+  <ListView IsGroupingEnabled="True" ItemsSource="{Binding Categories}">
+    <ListView.GroupHeaderTemplate>
+      <DataTemplate>
+        <ViewCell>
+          <ContentView Padding="10,0,0,0">
+						<StackLayout Orientation="Horizontal">
+							<Image Source="ExpandArrow.png" Rotation="{Binding Key.Category.Rotation}" HeightRequest="25" WidthRequest="25" HorizontalOptions="Start" />
+							 <Label Text="{Binding Key.Category.CategoryTitle}" HorizontalOptions="Center" VerticalOptions="Center" />
+							
+						</StackLayout>
+           
+			
+            <ContentView.GestureRecognizers>
+              <TapGestureRecognizer Command="{Binding Source={x:Reference TheMainPage}, Path=BindingContext.HeaderSelectedCommand}" CommandParameter="{Binding .}"/>
+            </ContentView.GestureRecognizers>
+          </ContentView>
+        </ViewCell>
+      </DataTemplate>
+    </ListView.GroupHeaderTemplate>
+    <ListView.ItemTemplate>
+      <DataTemplate>
+        <TextCell Text="{Binding ItemTitle}"/>
+      </DataTemplate>
+    </ListView.ItemTemplate>
+  </ListView>
+</ContentPage>
